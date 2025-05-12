@@ -2,9 +2,8 @@ package projekt.pallikorjaja;
 
 public class Pall extends MänguObjekt{
     /*
-    See, mida püütakse. Esimeses versioonis kujutatud tärnina ('*')
+    See, mida püütakse.
      */
-    //private boolean joonistatud; //pole hetkel super
 
     public Pall(float x, float y, float dx, float dy, int raadius) {
         super(new Vektor2(x, y), new Vektor2(dx, dy), new Vektor2(raadius, raadius));
@@ -39,20 +38,8 @@ public class Pall extends MänguObjekt{
         this.kiirus = new Vektor2(dx, dy);
     }
 
-    public void setKiirus(Vektor2 dxydt) {
-        this.kiirus = dxydt;
-    }
-
-    public Vektor2 getRaadiused() {
-        return raadiused;
-    }
-
-    public void setRaadiused(Vektor2 raadiused) {
-        this.raadiused = raadiused;
-    }
-
     public void Liigu(){
-        koordinaadid = koordinaadid;
+        this.koordinaadid.liidaVektor(kiirus);
     }
 
     @Override

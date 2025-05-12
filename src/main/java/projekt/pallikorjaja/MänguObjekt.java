@@ -35,6 +35,18 @@ abstract class MänguObjekt {
         this.koordinaadid = koordinaadid;
     }
 
+    public void setKiirus(Vektor2 kiirus) {
+        this.kiirus = kiirus;
+    }
+
+    public Vektor2 getRaadiused() {
+        return raadiused;
+    }
+
+    public void setRaadiused(Vektor2 raadiused) {
+        this.raadiused = raadiused;
+    }
+
     abstract void Liigu();
 
     @Override

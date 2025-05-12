@@ -2,10 +2,8 @@ package projekt.pallikorjaja;
 
 public class Mängija extends MänguObjekt{
 
-
     public Mängija(Vektor2 asukoht) {
         super(asukoht);
-
     }
 
     public Mängija(Vektor2 asukoht, Vektor2 raadiused, Vektor2 kiirus) {

@@ -18,6 +18,8 @@ public class PunktiHoidja {
         - võtab vastu (mängu alguses küsitud) mängija nime
         - parima skoori ja sellega seonduva nime leiab failist
      */
+
+    ///////////// Kirjutada ümber Streamidele
     private int hetkeneSkoor;
     private String hetkeneNimi;
     private int parimSkoor;

@@ -2,8 +2,8 @@ package projekt.pallikorjaja;
 
 public class Vektor2 {
     /*
-    Vektor on nagu ennik kahe väärtuse salvestamiseks.
-    Isendimeetodid lubavad tõlkida int ja double tüüpi väärtuste vahel (olla ettevaatlik).
+    Vektor on nagu ennik kahe väärtuse salvestamiseks (lihtne andmestruktuur).
+    Isendimeetodid lubavad tõlkida int ja double tüüpi väärtuste vahel.
     Kõik väärtused algväärtustatakse ja salvestatakse double-tüübiga.
     enamasti kasutusel x ja y koordinaatidena.
 
