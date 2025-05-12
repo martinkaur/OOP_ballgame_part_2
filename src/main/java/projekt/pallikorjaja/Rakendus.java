@@ -39,7 +39,7 @@ public class Rakendus extends Application {
          mängutsükkel = new AnimationTimer(){
             @Override
             public void handle(long aeg) {
-                // siin teha kõik asjad
+                // siin teha kõik asjad - pallide väärtustamine jms
             }
         };
 
