@@ -1,3 +1,5 @@
+package projekt.pallikorjaja;
+
 public class Pall extends MänguObjekt{
     /*
     See, mida püütakse. Esimeses versioonis kujutatud tärnina ('*')

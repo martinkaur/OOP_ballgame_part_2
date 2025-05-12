@@ -1,3 +1,5 @@
+package projekt.pallikorjaja;
+
 abstract class MänguObjekt {
     /*
     See, mis püüab. Esimeses versioonis näidatud '_'-ga.

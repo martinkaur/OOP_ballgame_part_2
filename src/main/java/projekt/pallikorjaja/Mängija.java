@@ -1,3 +1,5 @@
+package projekt.pallikorjaja;
+
 public class Mängija extends MänguObjekt{
 
 

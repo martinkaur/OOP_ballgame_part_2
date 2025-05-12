@@ -1,3 +1,5 @@
+package projekt.pallikorjaja;
+
 public class Vektor2 {
     /*
     Vektor on nagu ennik kahe väärtuse salvestamiseks.

@@ -1,3 +1,5 @@
+package projekt.pallikorjaja;
+
 import java.io.*;
 import java.util.Scanner;
 
