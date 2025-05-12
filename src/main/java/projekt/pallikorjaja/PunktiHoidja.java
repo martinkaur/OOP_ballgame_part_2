@@ -19,7 +19,7 @@ public class PunktiHoidja {
         - parima skoori ja sellega seonduva nime leiab failist
      */
 
-    ///////////// Kirjutada ümber Streamidele
+    //TODO: Kirjutada ümber Streamidele (nädal 9)
     private int hetkeneSkoor;
     private String hetkeneNimi;
     private int parimSkoor;

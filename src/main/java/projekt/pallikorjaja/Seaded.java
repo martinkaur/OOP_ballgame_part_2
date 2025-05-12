@@ -2,7 +2,7 @@ package projekt.pallikorjaja;
 
 
 public class Seaded {
-    private int algPallideArv;
+    private int pallideArv;
     private int maxPallideArv;
     private double maxKiirus;
     private int algElud;
@@ -16,15 +16,15 @@ public class Seaded {
         this.algElud = algElud;
         this.maxKiirus = maxKiirus;
         this.maxPallideArv = maxPallideArv;
-        this.algPallideArv = pallideArv;
+        this.pallideArv = pallideArv;
     }
 
-    public int getAlgPallideArv() {
-        return algPallideArv;
+    public int getPallideArv() {
+        return pallideArv;
     }
 
-    public void setAlgPallideArv(int algPallideArv) {
-        this.algPallideArv = algPallideArv;
+    public void setPallideArv(int algPallideArv) {
+        this.pallideArv = algPallideArv;
     }
 
     public int getMaxPallideArv() {

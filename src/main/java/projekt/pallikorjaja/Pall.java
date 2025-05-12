@@ -1,9 +1,12 @@
 package projekt.pallikorjaja;
 
+import javafx.scene.shape.Circle;
+
 public class Pall extends MänguObjekt{
     /*
     See, mida püütakse.
      */
+    private Circle ring;
 
     public Pall(float x, float y, float dx, float dy, int raadius) {
         super(new Vektor2(x, y), new Vektor2(dx, dy), new Vektor2(raadius, raadius));
@@ -40,6 +43,16 @@ public class Pall extends MänguObjekt{
 
     public void Liigu(){
         this.koordinaadid.liidaVektor(kiirus);
+        this.ring.setLayoutX(koordinaadid.getX());
+        this.ring.setLayoutY(koordinaadid.getY());
+    }
+
+    public Circle getRing() {
+        return ring;
+    }
+
+    public void setRing(Circle ring) {
+        this.ring = ring;
     }
 
     @Override
