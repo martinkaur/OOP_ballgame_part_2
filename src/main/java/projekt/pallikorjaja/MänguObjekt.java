@@ -24,7 +24,7 @@ abstract class MänguObjekt {
     public MänguObjekt(Vektor2 asukoht) {
         this.koordinaadid = asukoht;
         this.raadiused = new Vektor2(); // 0, 0 - kontrollime ainult hetkeasukohta esialgu
-        this.kiirus = new Vektor2(1, 1);
+        this.kiirus = new Vektor2(); // 0, 0
     }
 
     public Vektor2 getKoordinaadid() {
@@ -37,6 +37,10 @@ abstract class MänguObjekt {
 
     public void setKiirus(Vektor2 kiirus) {
         this.kiirus = kiirus;
+    }
+
+    public Vektor2 getKiirus() {
+        return kiirus;
     }
 
     public Vektor2 getRaadiused() {

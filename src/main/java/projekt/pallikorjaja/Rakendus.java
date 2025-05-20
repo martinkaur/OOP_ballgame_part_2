@@ -2,10 +2,13 @@ package projekt.pallikorjaja;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -13,20 +16,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class Rakendus extends Application {
     AnimationTimer mängutsükkel;
+    Mängija mängija = new Mängija(new Vektor2(260, 400));
     List<Pall> pallid = new ArrayList<>();
     Vektor2 tegelikSuurus = new Vektor2(640, 480); // see tähendab 1:1 mõlemas suunas, selle järgi hiljem arvutame muud suurused jagades jms
     Vektor2 suuruseKordaja = new Vektor2(1, 1); // eelmisega seotud, võimalik, et läheb vaja, TODO: event suuruse muutmise jaoks
+    PunktiHoidja punktiinfo = new PunktiHoidja(0, "");
 
     Seaded mänguseaded = new Seaded(30, 5, 10, 40, 20);
 
     @Override
     public void start(Stage peaLava) throws IOException {
         Group juurmäng = new Group();
-        juurmäng.minHeight(480);
-        juurmäng.minWidth(640);
+        //juurmäng.minHeight(480);
+        //juurmäng.minWidth(640);
+        juurmäng.getChildren().add(mängija.getKujutus());
+
+        Scene mängustseen = new Scene(juurmäng, 480, 640, Color.DARKGRAY);
 
         Group juurava = new Group();
         juurava.minHeight(480);
@@ -34,16 +43,14 @@ public class Rakendus extends Application {
 
         Scene avaekraan = new Scene(juurava, 480, 640, Color.LIGHTGRAY);
         TextField mängijasisend = new TextField("Nimi");
-        mängijasisend.setLayoutX(240);
+        mängijasisend.setLayoutX(260);
         mängijasisend.setLayoutY(120);
         juurava.getChildren().add(mängijasisend);
         Button alustanupp = new Button("ALUSTA");
         juurava.getChildren().add(alustanupp);
         alustanupp.setMinSize(80, 30);
-        alustanupp.setLayoutX(320);
+        alustanupp.setLayoutX(300);
         alustanupp.setLayoutY(200);
-
-        Scene mängustseen = new Scene(juurmäng, 480, 640, Color.DARKGRAY);
 
         peaLava.setTitle("Pallimäng");
         peaLava.setHeight(480);
@@ -57,7 +64,43 @@ public class Rakendus extends Application {
         // taimer käima ja läks TODO: õigesse kohta see palun
         alustanupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
+            punktiinfo.setHetkeneNimi(mängijasisend.getText());
             alusta();
+        });
+
+        peaLava.widthProperty().addListener((OV, vanaLaius, uusLaius) -> {
+            System.out.println("Laius: " + uusLaius);
+
+        });
+        peaLava.heightProperty().addListener((OV, vanaKõrgus, uusKõrgus) -> {
+            System.out.println("Kõrgus: " + uusKõrgus);
+
+        });
+
+
+        mängustseen.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.UP){
+                if(mängija.getKiirus().getY()>-4) mängija.getKiirus().liidaVektor(new Vektor2(0, -4));
+            }
+            if(keyEvent.getCode() == KeyCode.DOWN){
+                if(mängija.getKiirus().getY()<4) mängija.getKiirus().liidaVektor(new Vektor2(0, 4));
+            }
+            if(keyEvent.getCode() == KeyCode.LEFT){
+                if(mängija.getKiirus().getX()>-4) mängija.getKiirus().liidaVektor(new Vektor2(-4, 0));
+            }
+            if(keyEvent.getCode() == KeyCode.RIGHT){
+                if(mängija.getKiirus().getX()<4) mängija.getKiirus().liidaVektor(new Vektor2(4, 0));
+            }
+        });
+
+        mängustseen.setOnKeyReleased(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.DOWN){
+                mängija.getKiirus().setY(0);
+            }
+            if(keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.RIGHT){
+                mängija.getKiirus().setX(0);
+            }
+
         });
 
 
@@ -82,10 +125,18 @@ public class Rakendus extends Application {
                 for(Pall pall : pallid){
                     pall.Liigu();
                 }
+
+                mängija.Liigu();
+
             }
+
         };
 
          mängutsükkel.start();
+    }
+
+    private void lõpeta(){
+        mängutsükkel.stop();
     }
 
     /**

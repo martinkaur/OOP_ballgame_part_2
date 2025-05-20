@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Pallid liiguvad (suvaliselt).">
-      <change afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Olek.java" afterDir="false" />
+    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Avaekraan.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/MänguObjekt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/MänguObjekt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +117,14 @@
       <option name="presentableId" value="LOCAL−00006" />
       <updated>1747064080823</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL−00007" summary="Avaekraan.">
+      <option name="closed" value="true" />
+      <created>1747751085555</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1747751085555</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -125,6 +133,7 @@
     <MESSAGE value="Esialgne struktuur 3." />
     <MESSAGE value="Mõningad täiendused." />
     <MESSAGE value="Pallid liiguvad (suvaliselt)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Pallid liiguvad (suvaliselt)." />
+    <MESSAGE value="Avaekraan." />
+    <option name="LAST_COMMIT_MESSAGE" value="Avaekraan." />
   </component>
 </project>
