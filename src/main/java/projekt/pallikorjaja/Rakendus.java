@@ -4,6 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -22,24 +24,47 @@ public class Rakendus extends Application {
 
     @Override
     public void start(Stage peaLava) throws IOException {
-        Group juur = new Group();
-        juur.minHeight(480);
-        juur.minWidth(640);
+        Group juurmäng = new Group();
+        juurmäng.minHeight(480);
+        juurmäng.minWidth(640);
 
+        Group juurava = new Group();
+        juurava.minHeight(480);
+        juurava.minWidth(640);
 
-        Scene stseen = new Scene(juur, 480, 640, Color.DARKGRAY);
+        Scene avaekraan = new Scene(juurava, 480, 640, Color.LIGHTGRAY);
+        TextField mängijasisend = new TextField("Nimi");
+        mängijasisend.setLayoutX(240);
+        mängijasisend.setLayoutY(120);
+        juurava.getChildren().add(mängijasisend);
+        Button alustanupp = new Button("ALUSTA");
+        juurava.getChildren().add(alustanupp);
+        alustanupp.setMinSize(80, 30);
+        alustanupp.setLayoutX(320);
+        alustanupp.setLayoutY(200);
+
+        Scene mängustseen = new Scene(juurmäng, 480, 640, Color.DARKGRAY);
 
         peaLava.setTitle("Pallimäng");
         peaLava.setHeight(480);
         peaLava.setWidth(640);
-        peaLava.setScene(stseen);
+        peaLava.setScene(avaekraan);
         peaLava.show();
 
         // muu setup
-        loopallid(juur, stseen);
+        loopallid(juurmäng, mängustseen);
 
-        // taimer käima ja läks
-        alusta();
+        // taimer käima ja läks TODO: õigesse kohta see palun
+        alustanupp.setOnMouseClicked(event -> {
+            peaLava.setScene(mängustseen);
+            alusta();
+        });
+
+
+
+        Olek mänguolek = Olek.AVAEKRAAN; // kas seda on vaja tehniliselt
+        // TODO: tsükkel state-machine mänguoleku põhjal - millist stseeni näidata
+        // kokku vaja 3 stseeni teha - avastseen, mängustseen, lõpustseen
     }
 
     public static void main(String[] args) {
