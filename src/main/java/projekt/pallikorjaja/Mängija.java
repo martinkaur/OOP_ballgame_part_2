@@ -13,6 +13,7 @@ public class Mängija extends MänguObjekt{
 
     public Mängija(Vektor2 asukoht, Vektor2 raadiused, Vektor2 kiirus) {
         super(asukoht, raadiused, kiirus);
+        alustaOvaal();
     }
 
     public Ellipse getKujutus() {
@@ -21,9 +22,10 @@ public class Mängija extends MänguObjekt{
 
     private void alustaOvaal(){
         kujutus = new Ellipse();
-        kujutus.setRadiusX(10);
-        kujutus.setRadiusY(5);
+        kujutus.setRadiusX(16);
+        kujutus.setRadiusY(8);
         kujutus.setFill(Color.DARKGREEN);
+        kujutus.setStroke(Color.DARKBLUE);
         Liigu();
     }
 

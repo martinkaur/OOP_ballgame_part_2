@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Jah, palju asju. Liikumine ja kuulajad.">
+    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Veel asju, nime- ja skooritekst.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +47,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -136,7 +139,14 @@
       <option name="presentableId" value="LOCAL−00009" />
       <updated>1747764622388</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL−00010" summary="Veel asju, nime- ja skooritekst.">
+      <option name="closed" value="true" />
+      <created>1747765684672</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1747765684672</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -147,6 +157,7 @@
     <MESSAGE value="Pallid liiguvad (suvaliselt)." />
     <MESSAGE value="Avaekraan." />
     <MESSAGE value="Jah, palju asju. Liikumine ja kuulajad." />
-    <option name="LAST_COMMIT_MESSAGE" value="Jah, palju asju. Liikumine ja kuulajad." />
+    <MESSAGE value="Veel asju, nime- ja skooritekst." />
+    <option name="LAST_COMMIT_MESSAGE" value="Veel asju, nime- ja skooritekst." />
   </component>
 </project>

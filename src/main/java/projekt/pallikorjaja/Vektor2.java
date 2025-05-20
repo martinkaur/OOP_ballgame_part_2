@@ -64,6 +64,7 @@ public class Vektor2 {
         return new Vektor2(dx, dy);
     }
 
+
     //meetod, mis liidab 2 vektorit
     public void liidaVektor(Vektor2 teine){
         this.x += teine.x;
@@ -89,11 +90,11 @@ public class Vektor2 {
 
     //Kokkupõrkel suuna muutmine, horisontaalsel ja vertikaalsel eraldi
     public void põrgeVertikaalneSein(){
-        this.x = -this.x;
+        this.x *= -1;
     }
 
     public void põrgeHorisontaalneSein(){
-        this.y = -this.y;
+        this.y *= -1;
     }
 
     //kokkupõrge teise palliga - ainult suuna muut,
@@ -107,15 +108,24 @@ public class Vektor2 {
         // ongi vaja vektorit, mis kirjeldaks nende omavahelise põrke tugevust - suhteline kiirusvektor teiseni ja tagasi
         Vektor2 siit = this.uusVektorTeiseni(teine);
         Vektor2 siia = teine.uusVektorTeiseni(this);
-
-        // kui arvestada impulsis sisalduvat massi, tuleb teha 2 korrutustehet
-        // need jätame järgmisesse meetodisse...
+        //TODO: Vajab ROHKEM mõtlemist tegelt, normaalid on ka...
 
         // nüüd me teame nende suhteid, mõlemast mõlemale
         // edasine on tegelt hämmastavalt lihtne - meil on vaja lisada paegusele isendile vektori "siia"
         this.liidaVektor(siia);
-        teine.liidaVektor(siit);
+        teine.liidaVektor(siit); // kui iga palliga, siis eh... juhtuks 2 korda ja kiirused kasvaksid
         // ja ongi kõik
+    }
+
+    public void lihtnePõrge(Vektor2 teine){
+        double _x = teine.getX();
+        double _y = teine.getY();
+
+        teine.setX(this.x);
+        teine.setY(this.y);
+
+        this.x = _x;
+        this.y = _y;
     }
 
     // see meetod eksisteerib, sest suurem pall "võiks" olla raskem
@@ -132,6 +142,11 @@ public class Vektor2 {
         this.liidaVektor(siia);
         teine.liidaVektor(siit);
 
+    }
+
+    public void elementKorruta(Vektor2 teine){
+        this.x *= teine.getX();
+        this.y *= teine.getY();
     }
 
     //seda ei juhtu küll kunagi...
