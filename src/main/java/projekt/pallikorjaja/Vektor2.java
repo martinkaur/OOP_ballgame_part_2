@@ -59,7 +59,7 @@ public class Vektor2 {
     // Järgmine meetod tagastab vektori teise punktini (samuti vektor), märgiga x, y
     public Vektor2 uusVektorTeiseni(Vektor2 teine){
         double dx = teine.x - this.x;
-        double dy = teine.x - this.x;
+        double dy = teine.y - this.y;
 
         return new Vektor2(dx, dy);
     }
@@ -73,6 +73,11 @@ public class Vektor2 {
     public void korrutaKonstandiga(double c){
         this.x *= c;
         this.y *= c;
+    }
+
+    public void jagaVektor(Vektor2 jagaja){
+        this.x /= jagaja.x;
+        this.y /= jagaja.y;
     }
 
     // ################# siit edasi juba kindlasti teise etapi eeltöö ###################

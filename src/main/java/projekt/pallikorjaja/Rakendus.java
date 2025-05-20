@@ -22,7 +22,8 @@ public class Rakendus extends Application {
     AnimationTimer mängutsükkel;
     Mängija mängija = new Mängija(new Vektor2(260, 400));
     List<Pall> pallid = new ArrayList<>();
-    Vektor2 tegelikSuurus = new Vektor2(640, 480); // see tähendab 1:1 mõlemas suunas, selle järgi hiljem arvutame muud suurused jagades jms
+    Vektor2 algneSuurus = new Vektor2(640, 480); // see tähendab 1:1 mõlemas suunas, selle järgi hiljem arvutame muud suurused jagades jms
+    Vektor2 tegelikSuurus = new Vektor2(640, 480);
     Vektor2 suuruseKordaja = new Vektor2(1, 1); // eelmisega seotud, võimalik, et läheb vaja, TODO: event suuruse muutmise jaoks
     PunktiHoidja punktiinfo = new PunktiHoidja(0, "");
 
@@ -31,8 +32,6 @@ public class Rakendus extends Application {
     @Override
     public void start(Stage peaLava) throws IOException {
         Group juurmäng = new Group();
-        //juurmäng.minHeight(480);
-        //juurmäng.minWidth(640);
         juurmäng.getChildren().add(mängija.getKujutus());
 
         Scene mängustseen = new Scene(juurmäng, 480, 640, Color.DARKGRAY);
@@ -41,42 +40,43 @@ public class Rakendus extends Application {
         juurava.minHeight(480);
         juurava.minWidth(640);
 
-        Scene avaekraan = new Scene(juurava, 480, 640, Color.LIGHTGRAY);
+        Scene avaekraan = new Scene(juurava, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
         TextField mängijasisend = new TextField("Nimi");
-        mängijasisend.setLayoutX(260);
+        mängijasisend.setLayoutX(tegelikSuurus.getX()/2 - 78);
         mängijasisend.setLayoutY(120);
         juurava.getChildren().add(mängijasisend);
         Button alustanupp = new Button("ALUSTA");
         juurava.getChildren().add(alustanupp);
         alustanupp.setMinSize(80, 30);
-        alustanupp.setLayoutX(300);
+        alustanupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
         alustanupp.setLayoutY(200);
 
         peaLava.setTitle("Pallimäng");
-        peaLava.setHeight(480);
-        peaLava.setWidth(640);
+        peaLava.setHeight(algneSuurus.getY());
+        peaLava.setWidth(algneSuurus.getX());
         peaLava.setScene(avaekraan);
         peaLava.show();
 
         // muu setup
         loopallid(juurmäng, mängustseen);
 
-        // taimer käima ja läks TODO: õigesse kohta see palun
         alustanupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
             alusta();
         });
 
+        // kõikide asjade suuruseid peaks iga kaader tegelt korrutama suurusekordajaga ka....
         peaLava.widthProperty().addListener((OV, vanaLaius, uusLaius) -> {
-            System.out.println("Laius: " + uusLaius);
-
+            //System.out.println("Laius: " + uusLaius);
+            tegelikSuurus.setX((double) uusLaius);
+            suuruseKordaja.setX(tegelikSuurus.getX()/algneSuurus.getX());
         });
         peaLava.heightProperty().addListener((OV, vanaKõrgus, uusKõrgus) -> {
-            System.out.println("Kõrgus: " + uusKõrgus);
-
+            //System.out.println("Kõrgus: " + uusKõrgus);
+            tegelikSuurus.setY((double) uusKõrgus);
+            suuruseKordaja.setY(tegelikSuurus.getY()/algneSuurus.getY());
         });
-
 
         mängustseen.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode() == KeyCode.UP){
@@ -104,7 +104,6 @@ public class Rakendus extends Application {
         });
 
 
-
         Olek mänguolek = Olek.AVAEKRAAN; // kas seda on vaja tehniliselt
         // TODO: tsükkel state-machine mänguoleku põhjal - millist stseeni näidata
         // kokku vaja 3 stseeni teha - avastseen, mängustseen, lõpustseen
@@ -129,7 +128,6 @@ public class Rakendus extends Application {
                 mängija.Liigu();
 
             }
-
         };
 
          mängutsükkel.start();
