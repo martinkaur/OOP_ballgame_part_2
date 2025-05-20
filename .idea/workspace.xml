@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Jah, palju asju. Liikumine ja kuulajad.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Olek.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Olek.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +129,14 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1747763449554</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="Jah, palju asju. Liikumine ja kuulajad.">
+      <option name="closed" value="true" />
+      <created>1747764622388</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1747764622388</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

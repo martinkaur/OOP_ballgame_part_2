@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -59,10 +60,25 @@ public class Rakendus extends Application {
 
         // muu setup
         loopallid(juurmäng, mängustseen);
+        Text nimi = new Text(punktiinfo.getHetkeneNimi());
+        Text skoor = new Text("Skoor: " + Integer.toString(punktiinfo.getHetkeneSkoor()));
+        Text parimskoor = new Text("Parim skoor: " + Integer.toString(punktiinfo.getParimSkoor()));
+
+        juurmäng.getChildren().add(nimi);
+        juurmäng.getChildren().add(skoor);
+        juurmäng.getChildren().add(parimskoor);
+        nimi.setLayoutX(20);
+        nimi.setLayoutY(20);
+        skoor.setLayoutX(160);
+        skoor.setLayoutY(20);
+        parimskoor.setLayoutX(320);
+        parimskoor.setLayoutY(20);
+
 
         alustanupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
+            nimi.setText(punktiinfo.getHetkeneNimi());
             alusta();
         });
 
