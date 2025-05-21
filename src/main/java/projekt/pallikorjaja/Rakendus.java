@@ -51,13 +51,22 @@ public class Rakendus extends Application {
         Scene avaekraan = new Scene(juurava, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
         TextField mängijasisend = new TextField("Nimi");
         mängijasisend.setLayoutX(tegelikSuurus.getX()/2 - 78);
-        mängijasisend.setLayoutY(120);
+        mängijasisend.setLayoutY(200);
         juurava.getChildren().add(mängijasisend);
+
         Button alustaNupp = new Button("ALUSTA");
         juurava.getChildren().add(alustaNupp);
         alustaNupp.setMinSize(80, 30);
         alustaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
-        alustaNupp.setLayoutY(200);
+        alustaNupp.setLayoutY(300);
+
+        Text kirjeldusTekst = new Text("Pallipüüdja");
+        kirjeldusTekst.setFont(Font.font ("Arial", 24));
+        kirjeldusTekst.setFill(Color.LIMEGREEN);
+        kirjeldusTekst.setStroke(Color.DARKGREEN);
+        kirjeldusTekst.setLayoutX(algneSuurus.getX()/2-60);
+        kirjeldusTekst.setLayoutY(100);
+        juurava.getChildren().add(kirjeldusTekst);
 
         Group juurLõpp = new Group();
         Scene lõpuekraan = new Scene(juurLõpp, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
@@ -97,7 +106,7 @@ public class Rakendus extends Application {
         juurmäng.getChildren().add(auk);
 
         loopallid(juurmäng, mängustseen);
-        Text nimi = new Text(punktiinfo.getHetkeneNimi());
+        Text nimi = new Text();
         Text parimskoor = new Text("Parim skoor: " + Integer.toString(punktiinfo.getParimSkoor()));
         Text pausTekst = new Text("Pausil");
         pausTekst.setVisible(false);
@@ -111,13 +120,16 @@ public class Rakendus extends Application {
         nimi.setLayoutX(20);
         nimi.setLayoutY(20);
         nimi.setFont(Font.font ("Arial", 14));
-        skoor.setLayoutX(160);
+
+        skoor.setLayoutX(260);
         skoor.setLayoutY(20);
         skoor.setFont(Font.font ("Arial", 14));
-        parimskoor.setLayoutX(280);
+
+        parimskoor.setLayoutX(380);
         parimskoor.setLayoutY(20);
         parimskoor.setFont(Font.font ("Arial", 14));
-        eludTekst.setLayoutX(480);
+
+        eludTekst.setLayoutX(580);
         eludTekst.setLayoutY(24);
         eludTekst.setFont(Font.font ("Arial", 20));
         eludTekst.setFill(Color.GREEN);
@@ -135,11 +147,10 @@ public class Rakendus extends Application {
         juurmäng.getTransforms().setAll(scale);
         juurava.getTransforms().setAll(scale);
 
-
         alustaNupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
-            nimi.setText(punktiinfo.getHetkeneNimi());
+            nimi.setText("Nimi: "+punktiinfo.getHetkeneNimi());
             alusta(mängustseen, lõpuekraan, peaLava);
             paus = false;
         });
