@@ -12,31 +12,31 @@ public class Pall extends MänguObjekt{
 
     public Pall(float x, float y, float dx, float dy, int raadius) {
         super(new Vektor2(x, y), new Vektor2(dx, dy), new Vektor2(raadius, raadius));
-        ring = new Circle(8);
+        ring = new Circle(10);
         punanepall = false;
     }
 
     public Pall(Vektor2 koordinaadid, Vektor2 kiirus, int raadius) {
         super(koordinaadid, kiirus, new Vektor2(raadius, raadius));
-        ring = new Circle(8);
+        ring = new Circle(10);
         punanepall = false;
     }
 
     public Pall(Vektor2 koordinaadid, Vektor2 kiirus) {
         super(koordinaadid, kiirus, new Vektor2(1, 1));
-        ring = new Circle(8);
+        ring = new Circle(10);
         punanepall = false;
     }
 
     public Pall(Vektor2 koordinaadid) {
         super(koordinaadid, new Vektor2(0, 0), new Vektor2(1, 1));
-        ring = new Circle(8);
+        ring = new Circle(10);
         punanepall = false;
     }
 
     public Pall() {
         super(new Vektor2(0, 0), new Vektor2(0, 0), new Vektor2(0,0));
-        ring = new Circle(8);
+        ring = new Circle(10);
         punanepall = false;
     }
 

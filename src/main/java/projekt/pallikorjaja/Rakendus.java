@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
@@ -31,7 +32,8 @@ public class Rakendus extends Application {
     Vektor2 mängijaÜlemPiirid = new Vektor2(algneSuurus.getX()*0.9, algneSuurus.getY()*0.9);
 
     PunktiHoidja punktiinfo = new PunktiHoidja(0, "");
-    Text skoor = new Text("Skoor: " + Integer.toString(punktiinfo.getHetkeneSkoor()));
+    Text skoor = new Text("Skoor: " + punktiinfo.getHetkeneSkoor());
+    Text tulemusTekst = new Text("Sinu skoor: " + punktiinfo.getHetkeneSkoor());
 
     Seaded mänguseaded = new Seaded(20, 5, 5, 50, 10);
     int elud = mänguseaded.getAlgElud();
@@ -43,21 +45,43 @@ public class Rakendus extends Application {
     public void start(Stage peaLava) throws IOException {
         Group juurmäng = new Group();
         juurmäng.getChildren().add(mängija.getKujutus());
-
         Scene mängustseen = new Scene(juurmäng, algneSuurus.getY(), algneSuurus.getX(), Color.DARKGRAY);
 
         Group juurava = new Group();
-
         Scene avaekraan = new Scene(juurava, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
         TextField mängijasisend = new TextField("Nimi");
         mängijasisend.setLayoutX(tegelikSuurus.getX()/2 - 78);
         mängijasisend.setLayoutY(120);
         juurava.getChildren().add(mängijasisend);
-        Button alustanupp = new Button("ALUSTA");
-        juurava.getChildren().add(alustanupp);
-        alustanupp.setMinSize(80, 30);
-        alustanupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
-        alustanupp.setLayoutY(200);
+        Button alustaNupp = new Button("ALUSTA");
+        juurava.getChildren().add(alustaNupp);
+        alustaNupp.setMinSize(80, 30);
+        alustaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
+        alustaNupp.setLayoutY(200);
+
+        Group juurLõpp = new Group();
+        Scene lõpuekraan = new Scene(juurLõpp, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
+        Button lõpetaNupp = new Button("ALGUSESSE");
+        juurava.getChildren().add(lõpetaNupp);
+        lõpetaNupp.setMinSize(80, 30);
+        lõpetaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
+        lõpetaNupp.setLayoutY(200);
+
+        Text läbiTekst = new Text("Mäng läbi!");
+        läbiTekst.setFont(Font.font ("Arial", 20));
+        läbiTekst.setFill(Color.DARKORANGE);
+        läbiTekst.setLayoutX(algneSuurus.getX()/2-50);
+        läbiTekst.setLayoutY(algneSuurus.getY()/2);
+
+
+        tulemusTekst.setFont(Font.font ("Arial", 16));
+        tulemusTekst.setFill(Color.DARKGREEN);
+        tulemusTekst.setLayoutX(algneSuurus.getX()/2-50);
+        tulemusTekst.setLayoutY(algneSuurus.getY()/2+40);
+
+        juurLõpp.getChildren().add(lõpetaNupp);
+        juurLõpp.getChildren().add(läbiTekst);
+        juurLõpp.getChildren().add(tulemusTekst);
 
         peaLava.setTitle("Pallimäng");
         peaLava.setHeight(algneSuurus.getY());
@@ -65,7 +89,13 @@ public class Rakendus extends Application {
         peaLava.setScene(avaekraan);
         peaLava.show();
 
-        // muu setup
+        Ellipse auk = new Ellipse(150, 20);
+        auk.setFill(Color.DARKBLUE);
+        auk.setStroke(Color.DARKMAGENTA);
+        auk.setCenterX(algneSuurus.getX()/2);
+        auk.setCenterY(algneSuurus.getY()*0.95);
+        juurmäng.getChildren().add(auk);
+
         loopallid(juurmäng, mängustseen);
         Text nimi = new Text(punktiinfo.getHetkeneNimi());
         Text parimskoor = new Text("Parim skoor: " + Integer.toString(punktiinfo.getParimSkoor()));
@@ -92,7 +122,7 @@ public class Rakendus extends Application {
         eludTekst.setFont(Font.font ("Arial", 20));
         eludTekst.setFill(Color.GREEN);
 
-        pausTekst.setLayoutX(algneSuurus.getX()/2-40);
+        pausTekst.setLayoutX(algneSuurus.getX()/2-60);
         pausTekst.setLayoutY(algneSuurus.getY()/2);
         pausTekst.setFont(Font.font ("Arial", 32));
         pausTekst.setFill(Color.LIMEGREEN);
@@ -106,12 +136,16 @@ public class Rakendus extends Application {
         juurava.getTransforms().setAll(scale);
 
 
-        alustanupp.setOnMouseClicked(event -> {
+        alustaNupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
             nimi.setText(punktiinfo.getHetkeneNimi());
-            alusta(mängustseen);
+            alusta(mängustseen, lõpuekraan, peaLava);
             paus = false;
+        });
+
+        lõpetaNupp.setOnMouseClicked(event -> {
+            peaLava.setScene(avaekraan);
         });
 
         // kõikide asjade suuruseid peaks muutma akna suuruse muutmisel
@@ -181,32 +215,52 @@ public class Rakendus extends Application {
     /**
      * Kuvab animatsiooni taimeri põhjal asju ja muudab väärtusi jne
      */
-    private void alusta(Scene stseen){
+    private void alusta(Scene stseen, Scene lõpustseen, Stage peaLava){
          mängutsükkel = new AnimationTimer(){
-            @Override
+            // Tehniliselt mängutsükkel
+             @Override
             public void handle(long aeg) {
                 // siin teha kõik asjad - pallide liigutamine, mängija liigutamine
                 boolean lisadaVaja = false; // muidu concurrent modification, pole hea
 
+
+                if(elud <= 0){
+                    lõpetaMäng(peaLava, lõpustseen); //TODO: salvesta highscore jne
+                }
+
                 for(Pall pall : pallid){
 
                     // mängijakontroll
-                    if(pall.getKoordinaadid().kasOnRaadiuses(mängija.getKoordinaadid(), 16)){
+                    if(pall.getKoordinaadid().kasOnRaadiuses(mängija.getKoordinaadid(), 20)){
 
                         if(pall.isPunanepall()){
                             elud--;
                             eludeTekst();
 
-                            /*
-                            TODO: ----------------------------
-                            if(elud <= 0){
-                                lõpetaMäng() //TODO: sh salvesta highscore jne
-                            }
-                             */
                         } else if (pall.isRohelinepall()) {
                             elud++;
+
+                            // Kuna skoor muutub hüppega, võib see lävendi ületada nii, et ei märka
+                            int varem = punktiinfo.getHetkeneSkoor()/10;
+                            int varemLisa = punktiinfo.getHetkeneSkoor()/mänguseaded.getLisaIntervall();
+
+                            punktiinfo.setHetkeneSkoor(punktiinfo.getHetkeneSkoor()+5);
+                            skoor.setText("Skoor: " + Integer.toString(punktiinfo.getHetkeneSkoor()));
+
+                            int hiljem = punktiinfo.getHetkeneSkoor()/10;
+                            int hiljemLisa = punktiinfo.getHetkeneSkoor()/mänguseaded.getLisaIntervall();
+
+                            if(varem!=hiljem && punktiinfo.getHetkeneSkoor()%10 != 0){
+                                elud++;
+                            }
+
                             eludeTekst();
-                            punktiinfo.setHetkeneSkoor(punktiinfo.getHetkeneSkoor()+1);
+
+                            if(varemLisa!=hiljemLisa && punktiinfo.getHetkeneSkoor()%mänguseaded.getLisaIntervall() != 0){
+                                mänguseaded.setPallideArv(mänguseaded.getPallideArv()+1);
+                                mänguseaded.setMaxKiirus(mänguseaded.getMaxKiirus()+0.5);
+                                lisadaVaja = true;
+                            }
 
                         } else {
                             punktiinfo.setHetkeneSkoor(punktiinfo.getHetkeneSkoor()+1);
@@ -231,6 +285,17 @@ public class Rakendus extends Application {
                         juhuslikPall(pall, stseen);
 
                     }
+
+                    // augukontroll
+                    if(pall.getKoordinaadid().getY() > algneSuurus.getY()*0.94)
+                        if(pall.getKoordinaadid().getX() > algneSuurus.getX()/2-100)
+                            if(pall.getKoordinaadid().getX() < algneSuurus.getX()/2+100){
+                                if(pall.isRohelinepall()) elud-=2;
+                                if(!pall.isRohelinepall() && !pall.isPunanepall()) elud--;
+                                eludeTekst();
+
+                                juhuslikPall(pall, stseen);
+                            }
 
                     // põrkekontroll
                     if(pall.getKoordinaadid().getY() <= pall.getRaadiused().getX()) {
@@ -289,9 +354,13 @@ public class Rakendus extends Application {
          mängutsükkel.start();
     }
 
-    private void lõpetaMäng(){
+    private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan){
         mängutsükkel.stop();
-        // TODO ....
+        peaLava.setScene(lõpuEkraan);
+        mänguseaded = new Seaded(20, 5, 5, 50, 10);
+        elud = mänguseaded.getAlgElud();
+        tulemusTekst.setText("Sinu skoor: " + punktiinfo.getHetkeneSkoor());
+        eludeTekst();
     }
 
     /**
@@ -355,7 +424,7 @@ public class Rakendus extends Application {
     public void lisaPall(Group juur, Scene stseen){
         Pall pall = new Pall();
         juhuslikPall(pall, stseen);
-        pall.setRaadiused(new Vektor2(8, 8));
+        pall.setRaadiused(new Vektor2(10, 10));
 
         // lisame palli pallide listi
         pallid.add(pall);
@@ -369,6 +438,7 @@ public class Rakendus extends Application {
 
     void eludeTekst(){
         eludTekst.setText("Elud: " + elud);
+        if(elud > 2) eludTekst.setFill(Color.GREEN);
         if(elud == 2) eludTekst.setFill(Color.ORANGE);
         if(elud < 2) eludTekst.setFill(Color.RED);
     }

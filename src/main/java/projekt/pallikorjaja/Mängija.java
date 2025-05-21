@@ -22,8 +22,8 @@ public class Mängija extends MänguObjekt{
 
     private void alustaOvaal(){
         kujutus = new Ellipse();
-        kujutus.setRadiusX(16);
-        kujutus.setRadiusY(8);
+        kujutus.setRadiusX(20);
+        kujutus.setRadiusY(10);
         kujutus.setFill(Color.DARKGREEN);
         kujutus.setStroke(Color.DARKBLUE);
         Liigu();

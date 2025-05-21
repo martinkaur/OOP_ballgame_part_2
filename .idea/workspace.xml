@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Veel asju, nime- ja skooritekst.">
+    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Lõpuekraan veel puudu veits, muidu juba hea.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Mängija.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
     </list>
@@ -151,7 +152,14 @@
       <option name="presentableId" value="LOCAL−00011" />
       <updated>1747777825968</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL−00012" summary="Lõpuekraan veel puudu veits, muidu juba hea.">
+      <option name="closed" value="true" />
+      <created>1747826120418</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1747826120418</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -163,6 +171,7 @@
     <MESSAGE value="Avaekraan." />
     <MESSAGE value="Jah, palju asju. Liikumine ja kuulajad." />
     <MESSAGE value="Veel asju, nime- ja skooritekst." />
-    <option name="LAST_COMMIT_MESSAGE" value="Veel asju, nime- ja skooritekst." />
+    <MESSAGE value="Lõpuekraan veel puudu veits, muidu juba hea." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lõpuekraan veel puudu veits, muidu juba hea." />
   </component>
 </project>
