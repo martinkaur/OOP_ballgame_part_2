@@ -134,9 +134,8 @@ public class Rakendus extends Application {
         auk.setCenterY(algneSuurus.getY()*0.95);
         juurmäng.getChildren().add(auk);
 
-        loopallid(juurmäng, mängustseen);
         Text nimi = new Text();
-        Text parimskoor = new Text("Parim skoor: " + Integer.toString(punktiinfo.getParimSkoor()));
+        Text parimskoor = new Text("Parim skoor: " + punktiinfo.getParimSkoor());
         Text pausTekst = new Text("Pausil");
         pausTekst.setVisible(false);
 
@@ -181,7 +180,7 @@ public class Rakendus extends Application {
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
             nimi.setText("Nimi: "+punktiinfo.getHetkeneNimi());
             try{
-                alusta(mängustseen, lõpuekraan, peaLava);
+                alusta(mängustseen, lõpuekraan, peaLava, juurmäng);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -263,7 +262,9 @@ public class Rakendus extends Application {
     /**
      * Kuvab animatsiooni taimeri põhjal asju ja muudab väärtusi jne
      */
-    private void alusta(Scene stseen, Scene lõpustseen, Stage peaLava) throws Exception{
+    private void alusta(Scene stseen, Scene lõpustseen, Stage peaLava, Group mjuur) throws Exception{
+        loopallid(mjuur, stseen);
+
          mängutsükkel = new AnimationTimer(){
             // Tehniliselt mängutsükkel
              @Override
@@ -273,7 +274,7 @@ public class Rakendus extends Application {
 
                 if(elud <= 0){
                     try {
-                        lõpetaMäng(peaLava, lõpustseen);
+                        lõpetaMäng(peaLava, lõpustseen, mjuur);
                     } catch (Exception e) {
                         System.out.println("Ei õnnestunud õigesti lõpetada!");
                         throw new RuntimeException(e);
@@ -297,7 +298,7 @@ public class Rakendus extends Application {
                             int varemLisa = punktiinfo.getHetkeneSkoor()/mänguseaded.getLisaIntervall();
 
                             punktiinfo.setHetkeneSkoor(punktiinfo.getHetkeneSkoor()+5);
-                            skoor.setText("Skoor: " + Integer.toString(punktiinfo.getHetkeneSkoor()));
+                            skoor.setText("Skoor: " + punktiinfo.getHetkeneSkoor());
 
                             int hiljem = punktiinfo.getHetkeneSkoor()/10;
                             int hiljemLisa = punktiinfo.getHetkeneSkoor()/mänguseaded.getLisaIntervall();
@@ -315,7 +316,7 @@ public class Rakendus extends Application {
 
                         } else {
                             punktiinfo.setHetkeneSkoor(punktiinfo.getHetkeneSkoor()+1);
-                            skoor.setText("Skoor: " + Integer.toString(punktiinfo.getHetkeneSkoor()));
+                            skoor.setText("Skoor: " + punktiinfo.getHetkeneSkoor());
 
                         }
 
@@ -381,7 +382,7 @@ public class Rakendus extends Application {
                 }
 
                 // kui tekkis vajadus palli lisada:
-                if(lisadaVaja) lisaPall((Group) stseen.getRoot(), stseen);
+                if(lisadaVaja) lisaPall(mjuur, stseen);
 
                 mängija.Liigu();
                 // kontrollime, et mängija poleks oma kastist väljas
@@ -404,7 +405,7 @@ public class Rakendus extends Application {
          mängutsükkel.start();
     }
 
-    private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan) throws Exception {
+    private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan, Group mjuur) throws Exception {
         mängutsükkel.stop();
         peaLava.setScene(lõpuEkraan);
         mänguseaded = new Seaded(20, 5, 5, 40, 10); // Reseti seaded uueks mänguks
@@ -437,7 +438,15 @@ public class Rakendus extends Application {
             }
         }
 
+        punktiinfo.setHetkeneSkoor(0);
+
+        for (Pall p : pallid){
+            mjuur.getChildren().remove(p.getRing());
+        }
+
+        pallid.clear();
         edetabeliTekst.setText(edetabelTekst.toString());
+        skoor.setText("Skoor: " + punktiinfo.getHetkeneSkoor());
         eludeTekst();
     }
 

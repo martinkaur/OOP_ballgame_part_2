@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Nagu mäng. Skoori salvestamine ja laadimine puudu.">
+    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Valmis mäng.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Pall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/PunktiHoidja.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/PunktiHoidja.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Vektor2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +164,14 @@
       <option name="presentableId" value="LOCAL−00013" />
       <updated>1747830845091</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL−00014" summary="Valmis mäng.">
+      <option name="closed" value="true" />
+      <created>1747923017926</created>
+      <option name="number" value="LOCAL−00014" />
+      <option name="presentableId" value="LOCAL−00014" />
+      <updated>1747923017926</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -181,6 +185,8 @@
     <MESSAGE value="Veel asju, nime- ja skooritekst." />
     <MESSAGE value="Lõpuekraan veel puudu veits, muidu juba hea." />
     <MESSAGE value="Nagu mäng. Skoori salvestamine ja laadimine puudu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Nagu mäng. Skoori salvestamine ja laadimine puudu." />
+    <MESSAGE value="Lisasin pealkirja avaekraanile." />
+    <MESSAGE value="Valmis mäng." />
+    <option name="LAST_COMMIT_MESSAGE" value="Valmis mäng." />
   </component>
 </project>
