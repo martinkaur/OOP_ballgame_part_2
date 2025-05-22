@@ -126,10 +126,8 @@ public class PunktiHoidja {
     }
 
     public void leiaParim() throws Exception {
-        parimSkoor = 0;
+        int parimaSkoor = 0;
         parimaNimi = "";
-
-
 
         File fail = new File("skoorid.txt");
         if (!fail.exists()) {
@@ -146,16 +144,18 @@ public class PunktiHoidja {
                     try {
                         int skoor = Integer.parseInt(osad[0]);
                         String nimi = osad[1];
-                        if (skoor > parimSkoor) {
-                            parimSkoor = skoor;
+                        if (skoor > parimaSkoor) {
+                            parimaSkoor = skoor;
                             parimaNimi = nimi;
                         }
                     } catch (NumberFormatException e) {
-
+                        throw new RuntimeException();
                     }
                 }
             }
         }
+
+        this.parimSkoor = parimaSkoor;
     }
 
     /**
@@ -181,7 +181,7 @@ public class PunktiHoidja {
             tulemused.sort((a, b) -> Integer.compare(Integer.parseInt(b[0]), Integer.parseInt(a[0])));
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw  new RuntimeException();
         }
         return tulemused;
     }

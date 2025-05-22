@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Valmis mäng.">
+    <list default="true" id="f94d20d3-5490-46c9-9629-caff992467d4" name="Changes" comment="Kriitilised muudatused uuesti mängitavuse jaoks.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/PunktiHoidja.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/PunktiHoidja.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projekt/pallikorjaja/Rakendus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -171,7 +172,14 @@
       <option name="presentableId" value="LOCAL−00014" />
       <updated>1747923017926</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL−00015" summary="Kriitilised muudatused uuesti mängitavuse jaoks.">
+      <option name="closed" value="true" />
+      <created>1747951146596</created>
+      <option name="number" value="LOCAL−00015" />
+      <option name="presentableId" value="LOCAL−00015" />
+      <updated>1747951146596</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -187,6 +195,7 @@
     <MESSAGE value="Nagu mäng. Skoori salvestamine ja laadimine puudu." />
     <MESSAGE value="Lisasin pealkirja avaekraanile." />
     <MESSAGE value="Valmis mäng." />
-    <option name="LAST_COMMIT_MESSAGE" value="Valmis mäng." />
+    <MESSAGE value="Kriitilised muudatused uuesti mängitavuse jaoks." />
+    <option name="LAST_COMMIT_MESSAGE" value="Kriitilised muudatused uuesti mängitavuse jaoks." />
   </component>
 </project>

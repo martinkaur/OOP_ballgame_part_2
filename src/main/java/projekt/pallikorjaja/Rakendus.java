@@ -57,21 +57,21 @@ public class Rakendus extends Application {
         Group juurava = new Group();
         Scene avaekraan = new Scene(juurava, algneSuurus.getY(), algneSuurus.getX(), Color.LIGHTGRAY);
         TextField mängijasisend = new TextField("Nimi");
-        mängijasisend.setLayoutX(tegelikSuurus.getX()/2 - 78);
+        mängijasisend.setLayoutX(tegelikSuurus.getX() / 2 - 78);
         mängijasisend.setLayoutY(200);
         juurava.getChildren().add(mängijasisend);
 
         Button alustaNupp = new Button("ALUSTA");
         juurava.getChildren().add(alustaNupp);
         alustaNupp.setMinSize(80, 30);
-        alustaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
+        alustaNupp.setLayoutX(tegelikSuurus.getX() / 2 - 40);
         alustaNupp.setLayoutY(300);
 
         Text kirjeldusTekst = new Text("Pallipüüdja");
-        kirjeldusTekst.setFont(Font.font ("Arial", 24));
+        kirjeldusTekst.setFont(Font.font("Arial", 24));
         kirjeldusTekst.setFill(Color.LIMEGREEN);
         kirjeldusTekst.setStroke(Color.DARKGREEN);
-        kirjeldusTekst.setLayoutX(algneSuurus.getX()/2-60);
+        kirjeldusTekst.setLayoutX(algneSuurus.getX() / 2 - 60);
         kirjeldusTekst.setLayoutY(100);
         juurava.getChildren().add(kirjeldusTekst);
 
@@ -80,38 +80,38 @@ public class Rakendus extends Application {
         Button lõpetaNupp = new Button("ALGUSESSE");
         juurava.getChildren().add(lõpetaNupp);
         lõpetaNupp.setMinSize(80, 30);
-        lõpetaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
+        lõpetaNupp.setLayoutX(tegelikSuurus.getX() / 2 - 40);
         lõpetaNupp.setLayoutY(170);
 
         Text läbiTekst = new Text("Mäng läbi!");
-        läbiTekst.setFont(Font.font ("Arial", 20));
+        läbiTekst.setFont(Font.font("Arial", 20));
         läbiTekst.setFill(Color.DARKORANGE);
-        läbiTekst.setLayoutX(algneSuurus.getX()/2-50);
+        läbiTekst.setLayoutX(algneSuurus.getX() / 2 - 50);
         läbiTekst.setLayoutY(150);
 
 
         tulemusTekst.setFont(Font.font("Arial", 16));
         tulemusTekst.setFill(Color.DARKGREEN);
-        tulemusTekst.setLayoutX(algneSuurus.getX()/2 - 50);
+        tulemusTekst.setLayoutX(algneSuurus.getX() / 2 - 50);
         tulemusTekst.setLayoutY(260);
 
 
         Text edetabelPealkiri = new Text("Edetabel:");
         edetabelPealkiri.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         edetabelPealkiri.setFill(Color.BLACK);
-        edetabelPealkiri.setLayoutX(algneSuurus.getX()/2 - 50);
+        edetabelPealkiri.setLayoutX(algneSuurus.getX() / 2 - 50);
         edetabelPealkiri.setLayoutY(315);
 
 
         esimeneKoht.setFont(Font.font("Arial", FontWeight.BOLD, 18));
         esimeneKoht.setFill(Color.DARKBLUE);
-        esimeneKoht.setLayoutX(algneSuurus.getX()/2 - 50);
+        esimeneKoht.setLayoutX(algneSuurus.getX() / 2 - 50);
         esimeneKoht.setLayoutY(345);
 
 
         edetabeliTekst.setFont(Font.font("Arial", 14));
         edetabeliTekst.setFill(Color.DARKBLUE);
-        edetabeliTekst.setLayoutX(algneSuurus.getX()/2 - 50);
+        edetabeliTekst.setLayoutX(algneSuurus.getX() / 2 - 50);
         edetabeliTekst.setLayoutY(370);
 
         juurLõpp.getChildren().add(lõpetaNupp);
@@ -130,11 +130,17 @@ public class Rakendus extends Application {
         Ellipse auk = new Ellipse(120, 20);
         auk.setFill(Color.DARKBLUE);
         auk.setStroke(Color.DARKMAGENTA);
-        auk.setCenterX(algneSuurus.getX()/2);
-        auk.setCenterY(algneSuurus.getY()*0.95);
+        auk.setCenterX(algneSuurus.getX() / 2);
+        auk.setCenterY(algneSuurus.getY() * 0.95);
         juurmäng.getChildren().add(auk);
 
         Text nimi = new Text();
+
+        try {
+            punktiinfo.leiaParim();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Text parimskoor = new Text("Parim skoor: " + punktiinfo.getParimSkoor());
         Text pausTekst = new Text("Pausil");
         pausTekst.setVisible(false);
@@ -147,24 +153,24 @@ public class Rakendus extends Application {
 
         nimi.setLayoutX(20);
         nimi.setLayoutY(20);
-        nimi.setFont(Font.font ("Arial", 14));
+        nimi.setFont(Font.font("Arial", 14));
 
         skoor.setLayoutX(260);
         skoor.setLayoutY(20);
-        skoor.setFont(Font.font ("Arial", 14));
+        skoor.setFont(Font.font("Arial", 14));
 
         parimskoor.setLayoutX(380);
         parimskoor.setLayoutY(20);
-        parimskoor.setFont(Font.font ("Arial", 14));
+        parimskoor.setFont(Font.font("Arial", 14));
 
         eludTekst.setLayoutX(580);
         eludTekst.setLayoutY(24);
-        eludTekst.setFont(Font.font ("Arial", 20));
+        eludTekst.setFont(Font.font("Arial", 20));
         eludTekst.setFill(Color.GREEN);
 
-        pausTekst.setLayoutX(algneSuurus.getX()/2-60);
-        pausTekst.setLayoutY(algneSuurus.getY()/2);
-        pausTekst.setFont(Font.font ("Arial", 32));
+        pausTekst.setLayoutX(algneSuurus.getX() / 2 - 60);
+        pausTekst.setLayoutY(algneSuurus.getY() / 2);
+        pausTekst.setFont(Font.font("Arial", 32));
         pausTekst.setFill(Color.LIMEGREEN);
         pausTekst.setStroke(Color.GREEN);
 
@@ -178,8 +184,8 @@ public class Rakendus extends Application {
         alustaNupp.setOnMouseClicked(event -> {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
-            nimi.setText("Nimi: "+punktiinfo.getHetkeneNimi());
-            try{
+            nimi.setText("Nimi: " + punktiinfo.getHetkeneNimi());
+            try {
                 alusta(mängustseen, lõpuekraan, peaLava, juurmäng);
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -196,7 +202,7 @@ public class Rakendus extends Application {
         peaLava.widthProperty().addListener((OV, vanaLaius, uusLaius) -> {
             //System.out.println("Laius: " + uusLaius);
             tegelikSuurus.setX((double) uusLaius);
-            suuruseKordaja.setX(tegelikSuurus.getX()/algneSuurus.getX());
+            suuruseKordaja.setX(tegelikSuurus.getX() / algneSuurus.getX());
             scale.setX(suuruseKordaja.getX());
             juurmäng.getTransforms().setAll(scale);
             juurava.getTransforms().setAll(scale);
@@ -204,55 +210,58 @@ public class Rakendus extends Application {
         peaLava.heightProperty().addListener((OV, vanaKõrgus, uusKõrgus) -> {
             //System.out.println("Kõrgus: " + uusKõrgus);
             tegelikSuurus.setY((double) uusKõrgus);
-            suuruseKordaja.setY(tegelikSuurus.getY()/algneSuurus.getY());
+            suuruseKordaja.setY(tegelikSuurus.getY() / algneSuurus.getY());
             scale.setY(suuruseKordaja.getY());
-            juurmäng.getTransforms().setAll(scale);;
+            juurmäng.getTransforms().setAll(scale);
+            ;
             juurava.getTransforms().setAll(scale);
         });
 
 
         // mängija klaviatuurisisend: liikumine
         mängustseen.setOnKeyPressed(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.UP){
-                if(mängija.getKiirus().getY()>-mängijakiirus) mängija.getKiirus().liidaVektor(new Vektor2(0, -mängijakiirus));
+            if (keyEvent.getCode() == KeyCode.UP) {
+                if (mängija.getKiirus().getY() > -mängijakiirus)
+                    mängija.getKiirus().liidaVektor(new Vektor2(0, -mängijakiirus));
             }
-            if(keyEvent.getCode() == KeyCode.DOWN){
-                if(mängija.getKiirus().getY()<mängijakiirus) mängija.getKiirus().liidaVektor(new Vektor2(0, mängijakiirus));
+            if (keyEvent.getCode() == KeyCode.DOWN) {
+                if (mängija.getKiirus().getY() < mängijakiirus)
+                    mängija.getKiirus().liidaVektor(new Vektor2(0, mängijakiirus));
             }
-            if(keyEvent.getCode() == KeyCode.LEFT){
-                if(mängija.getKiirus().getX()>-mängijakiirus) mängija.getKiirus().liidaVektor(new Vektor2(-mängijakiirus, 0));
+            if (keyEvent.getCode() == KeyCode.LEFT) {
+                if (mängija.getKiirus().getX() > -mängijakiirus)
+                    mängija.getKiirus().liidaVektor(new Vektor2(-mängijakiirus, 0));
             }
-            if(keyEvent.getCode() == KeyCode.RIGHT){
-                if(mängija.getKiirus().getX()<mängijakiirus) mängija.getKiirus().liidaVektor(new Vektor2(mängijakiirus, 0));
+            if (keyEvent.getCode() == KeyCode.RIGHT) {
+                if (mängija.getKiirus().getX() < mängijakiirus)
+                    mängija.getKiirus().liidaVektor(new Vektor2(mängijakiirus, 0));
             }
         });
 
         mängustseen.setOnKeyReleased(keyEvent -> {
-            if(keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.DOWN){
+            if (keyEvent.getCode() == KeyCode.UP || keyEvent.getCode() == KeyCode.DOWN) {
                 mängija.getKiirus().setY(0);
             }
-            if(keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.RIGHT){
+            if (keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.RIGHT) {
                 mängija.getKiirus().setX(0);
             }
-            if(keyEvent.getCode() == KeyCode.P){
-                if(!paus) {
+            if (keyEvent.getCode() == KeyCode.P) {
+                if (!paus) {
                     mängutsükkel.stop();
                     pausTekst.setVisible(true);
                     paus = true;
-                }
-                else{
+                } else {
                     mängutsükkel.start();
                     pausTekst.setVisible(false);
                     paus = false;
                 }
             }
             // kiire exit
-            if(keyEvent.getCode() == KeyCode.E){
-                elud=0;
+            if (keyEvent.getCode() == KeyCode.E) {
+                elud = 0;
             }
 
         });
-
     }
 
     public static void main(String[] args){
@@ -429,7 +438,7 @@ public class Rakendus extends Application {
         StringBuilder edetabelTekst = new StringBuilder();
 
         if (!tulemused.isEmpty()) {
-            esimeneKoht.setText("1. " + tulemused.get(0)[1] + " - " + tulemused.get(0)[0]);
+            esimeneKoht.setText("1. " + tulemused.getFirst()[1] + " - " + tulemused.getFirst()[0]);
             for (int i = 1; i < Math.min(10, tulemused.size()); i++) {
                 edetabelTekst.append((i + 1)).append(". ")
                         .append(tulemused.get(i)[1])
