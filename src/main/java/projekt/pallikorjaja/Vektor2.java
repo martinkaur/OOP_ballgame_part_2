@@ -64,7 +64,6 @@ public class Vektor2 {
         return new Vektor2(dx, dy);
     }
 
-
     //meetod, mis liidab 2 vektorit
     public void liidaVektor(Vektor2 teine){
         this.x += teine.x;
@@ -75,13 +74,6 @@ public class Vektor2 {
         this.x *= c;
         this.y *= c;
     }
-
-    public void jagaVektor(Vektor2 jagaja){
-        this.x /= jagaja.x;
-        this.y /= jagaja.y;
-    }
-
-    // ################# siit edasi juba kindlasti teise etapi eeltöö ###################
 
     // et kontrollida, kas selle vektoriga esindatud punkt on teisele punktile lähemal või sama kaugel, kui antud raadius
     public boolean kasOnRaadiuses(Vektor2 punkt, double r){

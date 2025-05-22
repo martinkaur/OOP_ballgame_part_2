@@ -23,14 +23,17 @@ import java.util.List;
 public class Rakendus extends Application {
     // protected protected protected
     AnimationTimer mängutsükkel;
+
     Mängija mängija = new Mängija(new Vektor2(260, 400), new Vektor2(16, 8), new Vektor2());
     List<Pall> pallid = new ArrayList<>();
-    Vektor2 algneSuurus = new Vektor2(1080, 720); // see tähendab 1:1 mõlemas suunas, selle järgi hiljem arvutame muud suurused jagades jms
+
+    Vektor2 algneSuurus = new Vektor2(1080, 720);
     Vektor2 tegelikSuurus = new Vektor2(1080, 720);
-    Vektor2 suuruseKordaja = new Vektor2(1, 1); // eelmisega seotud, võimalik, et läheb vaja (I du not wanna, dis is pain)
+    Vektor2 suuruseKordaja = new Vektor2(1, 1);
 
     Vektor2 mängijaAlamPiirid = new Vektor2(algneSuurus.getX()*0.1, algneSuurus.getY()*0.5);
     Vektor2 mängijaÜlemPiirid = new Vektor2(algneSuurus.getX()*0.9, algneSuurus.getY()*0.9);
+    double mängijakiirus = 8;
 
     PunktiHoidja punktiinfo = new PunktiHoidja(0, "");
     Text skoor = new Text("Skoor: " + punktiinfo.getHetkeneSkoor());
@@ -39,14 +42,14 @@ public class Rakendus extends Application {
     Text edetabeliTekst = new Text();
     Text esimeneKoht = new Text();
 
-    Seaded mänguseaded = new Seaded(20, 5, 5, 50, 10);
+    Seaded mänguseaded = new Seaded(20, 5, 5, 40, 10);
     int elud = mänguseaded.getAlgElud();
 
     Text eludTekst = new Text("Elud: " + elud);
     boolean paus;
 
     @Override
-    public void start(Stage peaLava) {
+    public void start(Stage peaLava) throws Exception {
         Group juurmäng = new Group();
         juurmäng.getChildren().add(mängija.getKujutus());
         Scene mängustseen = new Scene(juurmäng, algneSuurus.getY(), algneSuurus.getX(), Color.DARKGRAY);
@@ -124,7 +127,7 @@ public class Rakendus extends Application {
         peaLava.setScene(avaekraan);
         peaLava.show();
 
-        Ellipse auk = new Ellipse(150, 20);
+        Ellipse auk = new Ellipse(120, 20);
         auk.setFill(Color.DARKBLUE);
         auk.setStroke(Color.DARKMAGENTA);
         auk.setCenterX(algneSuurus.getX()/2);
@@ -208,7 +211,7 @@ public class Rakendus extends Application {
             juurava.getTransforms().setAll(scale);
         });
 
-        double mängijakiirus = 6;
+
         // mängija klaviatuurisisend: liikumine
         mängustseen.setOnKeyPressed(keyEvent -> {
             if(keyEvent.getCode() == KeyCode.UP){
@@ -244,13 +247,16 @@ public class Rakendus extends Application {
                     paus = false;
                 }
             }
+            // kiire exit
+            if(keyEvent.getCode() == KeyCode.E){
+                elud=0;
+            }
 
         });
 
-        // maybe TODO: lõpuekraan, edetabel seal (võib edetabeli ka avaekraanile panna)
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         launch();
     }
 
@@ -265,12 +271,12 @@ public class Rakendus extends Application {
                 // siin teha kõik asjad - pallide liigutamine, mängija liigutamine
                 boolean lisadaVaja = false; // muidu concurrent modification, pole hea
 
-
                 if(elud <= 0){
                     try {
                         lõpetaMäng(peaLava, lõpustseen);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        System.out.println("Ei õnnestunud õigesti lõpetada!");
+                        throw new RuntimeException(e);
                     }
                 }
 
@@ -303,8 +309,7 @@ public class Rakendus extends Application {
                             eludeTekst();
 
                             if(varemLisa!=hiljemLisa && punktiinfo.getHetkeneSkoor()%mänguseaded.getLisaIntervall() != 0){
-                                mänguseaded.setPallideArv(mänguseaded.getPallideArv()+1);
-                                mänguseaded.setMaxKiirus(mänguseaded.getMaxKiirus()+0.5);
+                                lisaPallKiirus();
                                 lisadaVaja = true;
                             }
 
@@ -321,8 +326,7 @@ public class Rakendus extends Application {
                         }
                         if(punktiinfo.getHetkeneSkoor() % mänguseaded.getLisaIntervall() == 0){
                             if(mänguseaded.getMaxPallideArv() > mänguseaded.getPallideArv()){
-                                mänguseaded.setPallideArv(mänguseaded.getPallideArv()+1);
-                                mänguseaded.setMaxKiirus(mänguseaded.getMaxKiirus()+0.5);
+                                lisaPallKiirus();
                                 lisadaVaja = true;
                             }
                         }
@@ -334,8 +338,8 @@ public class Rakendus extends Application {
 
                     // augukontroll
                     if(pall.getKoordinaadid().getY() > algneSuurus.getY()*0.94)
-                        if(pall.getKoordinaadid().getX() > algneSuurus.getX()/2-100)
-                            if(pall.getKoordinaadid().getX() < algneSuurus.getX()/2+100){
+                        if(pall.getKoordinaadid().getX() > algneSuurus.getX()/2-120)
+                            if(pall.getKoordinaadid().getX() < algneSuurus.getX()/2+120){
                                 if(pall.isRohelinepall()) elud-=2;
                                 if(!pall.isRohelinepall() && !pall.isPunanepall()) elud--;
                                 eludeTekst();
@@ -403,7 +407,7 @@ public class Rakendus extends Application {
     private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan) throws Exception {
         mängutsükkel.stop();
         peaLava.setScene(lõpuEkraan);
-        mänguseaded = new Seaded(20, 5, 5, 50, 10); // Reseti seaded uueks mänguks
+        mänguseaded = new Seaded(20, 5, 5, 40, 10); // Reseti seaded uueks mänguks
         elud = mänguseaded.getAlgElud();
 
         try {
@@ -419,7 +423,6 @@ public class Rakendus extends Application {
         }
 
         tulemusTekst.setText("Sinu skoor: " + punktiinfo.getHetkeneSkoor() + "\n\n");
-
 
         List<String[]> tulemused = punktiinfo.edetabel();
         StringBuilder edetabelTekst = new StringBuilder();
@@ -438,23 +441,17 @@ public class Rakendus extends Application {
         eludeTekst();
     }
 
-    /**
-     * Teeb pallist nullitud palli.
-     * @param pall - pall, mida nullida
-     */
-    public static void nulliPall(Pall pall){
-        pall = new Pall();
-    }
 
     /**
      * Teeb pallist juhuslikus asukohas oleva palli
      * @param pall - pall, mida muudetakse
+     * @param stseen - steen, millest lähtutakse asukoha genereerimisel
      */
     public void juhuslikPall(Pall pall, Scene stseen){
         pall.setPunanepall(false);
         pall.setRohelinepall(false);
-        float x = (float) (Math.random() * (stseen.getWidth()));
-        float y = (float) (Math.random() * (stseen.getHeight()/4));
+        float x = (float) (Math.clamp(Math.random(), 0.1, 0.9) * (stseen.getWidth()));
+        float y = (float) (Math.clamp(Math.random(), 0.1, 0.9) * (stseen.getHeight()/4));
         Vektor2 koordinaadid = new Vektor2(x, y);
         float dx = (float) ((Math.random()-0.5) * (mänguseaded.getMaxKiirus())); // seda saab ka suurendada....
         float dy = (float) ((Math.random()-0.5) * (mänguseaded.getMaxKiirus()));
@@ -504,11 +501,15 @@ public class Rakendus extends Application {
         // lisame palli pallide listi
         pallid.add(pall);
         //System.out.println(pall);
-
         // lisame siin pallid ka hetkel juurele
         pall.getRing().setLayoutX(pall.getKoordinaadid().getX());
         pall.getRing().setLayoutY(pall.getKoordinaadid().getY());
         juur.getChildren().add(pall.getRing());
+    }
+
+    void lisaPallKiirus(){
+        mänguseaded.setPallideArv(mänguseaded.getPallideArv()+1);
+        mänguseaded.setMaxKiirus(mänguseaded.getMaxKiirus()+0.2);
     }
 
     void eludeTekst(){

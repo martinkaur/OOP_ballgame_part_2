@@ -1,8 +1,7 @@
 package projekt.pallikorjaja;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -118,7 +117,7 @@ public class PunktiHoidja {
         }
 
         try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("skoorid.txt",false), "UTF-8"))) {
+                new FileOutputStream("skoorid.txt",false), StandardCharsets.UTF_8))) {
             for (Map.Entry<String, Integer> tulemused: skoorid.entrySet()) {
                 out.write(tulemused.getValue() + "\t" + tulemused.getKey());
                 out.newLine();
@@ -139,7 +138,7 @@ public class PunktiHoidja {
         }
 
         try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                new FileInputStream(fail), "UTF-8"))) {
+                new FileInputStream(fail), StandardCharsets.UTF_8))) {
             String rida;
             while ((rida = in.readLine()) != null) {
                 String[] osad = rida.split("\t");
@@ -171,7 +170,7 @@ public class PunktiHoidja {
             return tulemused;
         }
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new FileInputStream(fail), "UTF-8"))) {
+                new FileInputStream(fail), StandardCharsets.UTF_8))) {
             String rida;
             while ((rida = reader.readLine()) != null) {
                 String[] osad = rida.split("\t");

@@ -40,19 +40,6 @@ public class Pall extends MänguObjekt{
         punanepall = false;
     }
 
-
-    public void setKoordinaadid(float x, float y) {
-        this.koordinaadid = new Vektor2(x, y);
-    }
-
-    public Vektor2 getKiirus() {
-        return kiirus;
-    }
-
-    public void setKiirus(float dx, float dy) {
-        this.kiirus = new Vektor2(dx, dy);
-    }
-
     public void Liigu(){
         this.koordinaadid.liidaVektor(kiirus);
         this.ring.setLayoutX(koordinaadid.getX());
