@@ -1,5 +1,5 @@
 ***Welcome to the ballgame!***
-<br>To play: run src/main/java/project.pallikorjaja/Rakendus.java.
+<br>To play: run src/main/java/projekt/pallikorjaja/Rakendus.java (IJ build and run).
 <br><br>
 **Made by:**
 <br>Jaanika Seli
