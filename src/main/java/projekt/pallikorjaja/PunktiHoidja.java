@@ -1,7 +1,12 @@
 package projekt.pallikorjaja;
 
 import java.io.*;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PunktiHoidja {
     /*
@@ -19,7 +24,6 @@ public class PunktiHoidja {
         - parima skoori ja sellega seonduva nime leiab failist
      */
 
-    //TODO: Kirjutada ümber Streamidele (nädal 9)
     private int hetkeneSkoor;
     private String hetkeneNimi;
     private int parimSkoor;
@@ -81,35 +85,106 @@ public class PunktiHoidja {
         return hetkeneSkoor;
     }
 
-    public void salvestaSkoor(){
-        try (FileWriter fail = new FileWriter("skoorid.txt", true);
-             PrintWriter printWriter = new PrintWriter(fail)){
-            printWriter.println(hetkeneSkoor + "\t" + hetkeneNimi);
-        } catch (Exception e) {
-            System.err.println("Viga skoori salvestamisel: " + e.getMessage());
+    public void salvestaSkoor() throws Exception {
+        Map<String, Integer> skoorid = new LinkedHashMap<>();
+
+        File fail = new File("skoorid.txt");
+
+        if (fail.exists()) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(fail), "UTF-8"))) {
+                String rida;
+                while ((rida = reader.readLine()) != null) {
+                    String[] osad = rida.split("\t");
+                    if (osad.length == 2) {
+                        String nimi = osad[1];
+                        int skoor = Integer.parseInt(osad[0]);
+                        if (nimi.equals(hetkeneNimi)) {
+                            if (hetkeneSkoor > skoor) {
+                                skoorid.put(nimi, hetkeneSkoor);
+                            } else {
+                                skoorid.put(nimi, skoor);
+                            }
+                        } else {
+                            skoorid.put(nimi, skoor);
+                        }
+                    }
+                }
+            }
+        }
+
+        if(!skoorid.containsKey(hetkeneNimi)){
+            skoorid.put(hetkeneNimi,hetkeneSkoor);
+        }
+
+        try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("skoorid.txt",false), "UTF-8"))) {
+            for (Map.Entry<String, Integer> tulemused: skoorid.entrySet()) {
+                out.write(tulemused.getValue() + "\t" + tulemused.getKey());
+                out.newLine();
+            }
         }
     }
 
-    public void leiaParim () {
+    public void leiaParim() throws Exception {
         parimSkoor = 0;
         parimaNimi = "";
 
-        try (Scanner scanner = new Scanner(new File("skoorid.txt"), "UTF-8")){
-            while (scanner.hasNextLine()){
-                String rida = scanner.nextLine();
+
+
+        File fail = new File("skoorid.txt");
+        if (!fail.exists()) {
+            System.err.println("Faili skoorid.txt ei leitud!");
+            return;
+        }
+
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(
+                new FileInputStream(fail), "UTF-8"))) {
+            String rida;
+            while ((rida = in.readLine()) != null) {
                 String[] osad = rida.split("\t");
+                if (osad.length == 2) {
+                    try {
+                        int skoor = Integer.parseInt(osad[0]);
+                        String nimi = osad[1];
+                        if (skoor > parimSkoor) {
+                            parimSkoor = skoor;
+                            parimaNimi = nimi;
+                        }
+                    } catch (NumberFormatException e) {
 
-                int skoor = Integer.parseInt(osad[0]);
-                String nimi = osad[1];
-
-                if (skoor > parimSkoor){
-                    parimSkoor = skoor;
-                    parimaNimi = nimi;
+                    }
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("Faili skoorid.txt ei leitud!");
         }
+    }
+
+    /**
+     *
+     * @return tagastab failist loetud tulemused String massiivina (skoor, nimi) järjestatuna parimast alates.
+     */
+    public List<String[]> edetabel(){
+        List<String[]> tulemused = new ArrayList<>();
+        File fail = new File("skoorid.txt");
+
+        if (!fail.exists()) {
+            return tulemused;
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                new FileInputStream(fail), "UTF-8"))) {
+            String rida;
+            while ((rida = reader.readLine()) != null) {
+                String[] osad = rida.split("\t");
+                if (osad.length == 2) {
+                    tulemused.add(osad);
+                }
+            }
+            tulemused.sort((a, b) -> Integer.compare(Integer.parseInt(b[0]), Integer.parseInt(a[0])));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tulemused;
     }
 
     @Override

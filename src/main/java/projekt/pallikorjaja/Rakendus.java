@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
@@ -35,6 +36,9 @@ public class Rakendus extends Application {
     Text skoor = new Text("Skoor: " + punktiinfo.getHetkeneSkoor());
     Text tulemusTekst = new Text("Sinu skoor: " + punktiinfo.getHetkeneSkoor());
 
+    Text edetabeliTekst = new Text();
+    Text esimeneKoht = new Text();
+
     Seaded mänguseaded = new Seaded(20, 5, 5, 50, 10);
     int elud = mänguseaded.getAlgElud();
 
@@ -42,7 +46,7 @@ public class Rakendus extends Application {
     boolean paus;
 
     @Override
-    public void start(Stage peaLava) throws IOException {
+    public void start(Stage peaLava) {
         Group juurmäng = new Group();
         juurmäng.getChildren().add(mängija.getKujutus());
         Scene mängustseen = new Scene(juurmäng, algneSuurus.getY(), algneSuurus.getX(), Color.DARKGRAY);
@@ -74,23 +78,45 @@ public class Rakendus extends Application {
         juurava.getChildren().add(lõpetaNupp);
         lõpetaNupp.setMinSize(80, 30);
         lõpetaNupp.setLayoutX(tegelikSuurus.getX()/2 - 40);
-        lõpetaNupp.setLayoutY(200);
+        lõpetaNupp.setLayoutY(170);
 
         Text läbiTekst = new Text("Mäng läbi!");
         läbiTekst.setFont(Font.font ("Arial", 20));
         läbiTekst.setFill(Color.DARKORANGE);
         läbiTekst.setLayoutX(algneSuurus.getX()/2-50);
-        läbiTekst.setLayoutY(algneSuurus.getY()/2);
+        läbiTekst.setLayoutY(150);
 
 
-        tulemusTekst.setFont(Font.font ("Arial", 16));
+        tulemusTekst.setFont(Font.font("Arial", 16));
         tulemusTekst.setFill(Color.DARKGREEN);
-        tulemusTekst.setLayoutX(algneSuurus.getX()/2-50);
-        tulemusTekst.setLayoutY(algneSuurus.getY()/2+40);
+        tulemusTekst.setLayoutX(algneSuurus.getX()/2 - 50);
+        tulemusTekst.setLayoutY(260);
+
+
+        Text edetabelPealkiri = new Text("Edetabel:");
+        edetabelPealkiri.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        edetabelPealkiri.setFill(Color.BLACK);
+        edetabelPealkiri.setLayoutX(algneSuurus.getX()/2 - 50);
+        edetabelPealkiri.setLayoutY(315);
+
+
+        esimeneKoht.setFont(Font.font("Arial", FontWeight.BOLD, 18));
+        esimeneKoht.setFill(Color.DARKBLUE);
+        esimeneKoht.setLayoutX(algneSuurus.getX()/2 - 50);
+        esimeneKoht.setLayoutY(345);
+
+
+        edetabeliTekst.setFont(Font.font("Arial", 14));
+        edetabeliTekst.setFill(Color.DARKBLUE);
+        edetabeliTekst.setLayoutX(algneSuurus.getX()/2 - 50);
+        edetabeliTekst.setLayoutY(370);
 
         juurLõpp.getChildren().add(lõpetaNupp);
         juurLõpp.getChildren().add(läbiTekst);
         juurLõpp.getChildren().add(tulemusTekst);
+        juurLõpp.getChildren().add(edetabeliTekst);
+        juurLõpp.getChildren().add(esimeneKoht);
+        juurLõpp.getChildren().add(edetabelPealkiri);
 
         peaLava.setTitle("Pallimäng");
         peaLava.setHeight(algneSuurus.getY());
@@ -151,7 +177,12 @@ public class Rakendus extends Application {
             peaLava.setScene(mängustseen);
             punktiinfo.setHetkeneNimi(mängijasisend.getText());
             nimi.setText("Nimi: "+punktiinfo.getHetkeneNimi());
-            alusta(mängustseen, lõpuekraan, peaLava);
+            try{
+                alusta(mängustseen, lõpuekraan, peaLava);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
             paus = false;
         });
 
@@ -226,7 +257,7 @@ public class Rakendus extends Application {
     /**
      * Kuvab animatsiooni taimeri põhjal asju ja muudab väärtusi jne
      */
-    private void alusta(Scene stseen, Scene lõpustseen, Stage peaLava){
+    private void alusta(Scene stseen, Scene lõpustseen, Stage peaLava) throws Exception{
          mängutsükkel = new AnimationTimer(){
             // Tehniliselt mängutsükkel
              @Override
@@ -236,7 +267,11 @@ public class Rakendus extends Application {
 
 
                 if(elud <= 0){
-                    lõpetaMäng(peaLava, lõpustseen); //TODO: salvesta highscore jne
+                    try {
+                        lõpetaMäng(peaLava, lõpustseen);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 for(Pall pall : pallid){
@@ -365,12 +400,41 @@ public class Rakendus extends Application {
          mängutsükkel.start();
     }
 
-    private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan){
+    private void lõpetaMäng(Stage peaLava, Scene lõpuEkraan) throws Exception {
         mängutsükkel.stop();
         peaLava.setScene(lõpuEkraan);
-        mänguseaded = new Seaded(20, 5, 5, 50, 10);
+        mänguseaded = new Seaded(20, 5, 5, 50, 10); // Reseti seaded uueks mänguks
         elud = mänguseaded.getAlgElud();
-        tulemusTekst.setText("Sinu skoor: " + punktiinfo.getHetkeneSkoor());
+
+        try {
+            punktiinfo.salvestaSkoor();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            punktiinfo.leiaParim();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        tulemusTekst.setText("Sinu skoor: " + punktiinfo.getHetkeneSkoor() + "\n\n");
+
+
+        List<String[]> tulemused = punktiinfo.edetabel();
+        StringBuilder edetabelTekst = new StringBuilder();
+
+        if (!tulemused.isEmpty()) {
+            esimeneKoht.setText("1. " + tulemused.get(0)[1] + " - " + tulemused.get(0)[0]);
+            for (int i = 1; i < Math.min(10, tulemused.size()); i++) {
+                edetabelTekst.append((i + 1)).append(". ")
+                        .append(tulemused.get(i)[1])
+                        .append(" - ").append(tulemused.get(i)[0])
+                        .append("\n");
+            }
+        }
+
+        edetabeliTekst.setText(edetabelTekst.toString());
         eludeTekst();
     }
 
